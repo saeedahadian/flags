@@ -98,6 +98,19 @@ func ParseFlags(args []string) ([]*Flag, error) {
 			flags = append(flags, flag)
 		}
 	}
+
+	lastArg := args[len(args)-1]
+	lastArgKey, isLastArgKey := parseKey(lastArg)
+	if !isLastArgKey {
+		return flags, nil
+	}
+	
+	flag, err := NewBoolFlag(lastArgKey, "true")
+	if err != nil {
+		return nil, fmt.Errorf("key %q: %w", lastArgKey, err)
+	}
+	flags = append(flags, flag)
+
 	return flags, nil
 }
 
