@@ -46,3 +46,16 @@ func TestWhenSingleBooleanFlagPassedIsParsed(t *testing.T) {
 		t.Fatalf("Didn't parse flags correctly.")
 	}
 }
+
+func TestWhenEmptyArgsPassedNoFlagsAreParsed(t *testing.T) {
+	args := []string{}
+
+	flags, err := ParseFlags(args)
+	if err != nil {
+		t.Fatalf("Error while parsing the arguments: %s", err.Error())
+	}
+
+	if len(flags) != 0 {
+		t.Fatalf("No flags should've been parsed.")
+	}
+}

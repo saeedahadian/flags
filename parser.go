@@ -58,6 +58,11 @@ func (b *boolValue) String() string {
 
 func ParseFlags(args []string) ([]*Flag, error) {
 	var flags []*Flag
+
+	if len(args) == 0 {
+		return flags, nil
+	}
+
 	for i := 1; i < len(args); i++ {
 		arg := args[i]
 		prevArg := args[i-1]
